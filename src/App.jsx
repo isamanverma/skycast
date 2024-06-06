@@ -12,7 +12,7 @@ function App() {
     <LocationProvider>
       <main className="flex h-screen flex-col justify-between">
         <Header />
-        <div className="flex flex-shrink-0 flex-col gap-x-44 md:mx-32 md:flex-row md:justify-start">
+        <div className="flex flex-shrink-0 flex-col gap-x-44 lg:mx-32 lg:flex-row lg:justify-start">
           <CurrentWeather temperatureUnit={degreeCelsius} />
           <Upcoming temperatureUnit={degreeCelsius} />
         </div>

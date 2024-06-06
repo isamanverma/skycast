@@ -14,16 +14,21 @@ const LocationProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         let location = null;
+        const locationUpdated = sessionStorage.getItem("locationUpdated");
 
-        // Check if location data is stored in session storage
-        const storedLocation = sessionStorage.getItem("location");
-
-        if (storedLocation) {
-          location = JSON.parse(storedLocation);
-        } else {
-          // Fetch location data if not stored
+        if (!locationUpdated) {
           location = await getLocation();
           sessionStorage.setItem("location", JSON.stringify(location));
+          sessionStorage.setItem("locationUpdated", "true");
+        } else {
+          const storedLocation = sessionStorage.getItem("location");
+          if (storedLocation) {
+            location = JSON.parse(storedLocation);
+          } else {
+            // Fallback if location is not found in session storage for some reason
+            location = await getLocation();
+            sessionStorage.setItem("location", JSON.stringify(location));
+          }
         }
 
         const { latitude, longitude } = location;
